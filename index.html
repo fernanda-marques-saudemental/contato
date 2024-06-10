@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fernanda Marques | Saúde Mental |</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #2a2a2a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .texture {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(https://i.ibb.co/Mp5fm07/image-1.png); /* Substitua pelo caminho da sua imagem */
+            background-repeat: repeat;
+            opacity: 0.3; /* Ajuste a opacidade aqui */
+            z-index: -1;
+        }
+
+        .logo {
+            width: 410px;
+            height: 410px;
+            
+            background: url('https://i.ibb.co/KyLq8QW/LOGOFERATUALIZADA.gif') no-repeat center center / cover;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: bounce 2s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+
+        @keyframes fade {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .slide-up {
+            animation: slide-up 1s ease-in-out forwards;
+        }
+
+        @keyframes slide-up {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="texture"></div>
+    <div class="logo"></div>
+
+    <script>
+        $(document).ready(function() {
+            $('.logo').click(function() {
+                $(this).addClass('bounce');
+                setTimeout(function() {
+                    $('body').addClass('slide-up');
+                    setTimeout(function() {
+                        window.location.href = 'contact-pag.html'; // Substitua pelo caminho da sua segunda página
+                    }, 1000);
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
