@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fernanda Marques | Contato | </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #383838;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            position: relative;
+	    bottom: 30px;
+            overflow: hidden;
+        }
+
+        .texture {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(https://i.ibb.co/Mp5fm07/image-1.png); 
+            background-repeat: repeat;
+            opacity: 0.3; /* Ajuste a opacidade aqui */
+            z-index: -1;
+        }
+
+        .logo {
+            margin-top: 70px;
+            width: 300px;
+            height: 300px;
+	
+            border-radius: 30%;
+            background: url('https://i.ibb.co/LPg2HHC/LOGOFERATUALIZADA2.gif') no-repeat center center / cover;
+	   
+ 	}
+	
+
+	
+
+        .slider-container {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            background-color: #dedede;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+            cursor: pointer;
+            transition: width 0.5s ease, border-radius 0.5s ease;
+	    
+        }
+	
+
+
+        .slider-container.expanded {
+            width: 70%;
+            max-width: 400px;
+            border-radius: 30px;
+	    
+        }
+
+        .slider {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: left 0.3s ease, background-color 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slider img {
+            width: 40px;
+            height: 40px;
+        }
+
+        #slider-whatsapp {
+            background-color: #25d366;
+        }
+
+        #slider-email {
+            background-color: #3b5998;
+        }
+
+        #slider-instagram {
+            background-color: #8a3ab9;
+        }
+
+        .arrow-container {
+            position: absolute;
+            top: 50%;
+            left: 70px;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .slider-container.expanded .arrow-container {
+            opacity: 1;
+        }
+
+        .arrow {
+            font-size: 24px;
+            color: #696969;
+            animation: blink 1.5s infinite;
+        }
+
+        .text {
+            font-size: 18px;
+            color: #696969;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="texture"></div>
+    <div class="logo"></div>
+
+    <div class="slider-container" id="whatsapp">
+        <div class="slider" id="slider-whatsapp">
+            <img src="https://i.ibb.co/N3J91bH/whatsanimated-ICONok.gif" alt="WhatsApp">
+        </div>
+        <div class="arrow-container">
+            <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            <span class="text">Arraste para o lado</span>
+        </div>
+    </div>
+    <div class="slider-container" id="email">
+        <div class="slider" id="slider-email">
+            <img src="https://i.ibb.co/4ZZmX2p/mail.gif" alt="Email">
+        </div>
+        <div class="arrow-container">
+            <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            <span class="text">Arraste para o lado</span>
+        </div>
+    </div>
+    <div class="slider-container" id="instagram">
+        <div class="slider" id="slider-instagram">
+            <img src="https://i.ibb.co/h7xKtHR/instagram-shot.gif" alt="Instagram">
+        </div>
+        <div class="arrow-container">
+            <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            <span class="text">Arraste para o lado</span>
+        </div>
+    </div>
+
+    <script>
+        let expandedSlider = null;
+
+        function createSlider(slider, url, color) {
+            let isDragging = false;
+            let startX;
+
+            slider.parentElement.addEventListener('click', function() {
+                if (!isDragging) {
+                    if (expandedSlider && expandedSlider !== slider.parentElement)
+	 {
+                       
+
+
+
+
+// Recolhe o slider expandido anteriormente
+                        expandedSlider.classList.remove('expanded');
+                    }
+                    expandedSlider = slider.parentElement;
+                    slider.parentElement.classList.toggle('expanded');
+                }
+            });
+
+            slider.addEventListener('mousedown', function(e) {
+                isDragging = true;
+                startX = e.clientX;
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            });
+
+            slider.addEventListener('touchstart', function(e) {
+                isDragging = true;
+                startX = e.touches[0].clientX;
+                document.addEventListener('touchmove', onTouchMove);
+                document.addEventListener('touchend', onTouchEnd);
+            });
+
+            function onMouseMove(e) {
+                if (isDragging) {
+                    moveSlider(e.clientX);
+                }
+            }
+
+            function onTouchMove(e) {
+                if (isDragging) {
+                    moveSlider(e.touches[0].clientX);
+                }
+            }
+
+            function moveSlider(clientX) {
+                const containerRect = slider.parentElement.getBoundingClientRect();
+                let newLeft = clientX - startX + 5;
+                if (newLeft < 5) newLeft = 5;
+                if (newLeft > containerRect.width - slider.offsetWidth - 5) newLeft = containerRect.width - slider.offsetWidth - 5;
+                slider.style.left = newLeft + 'px';
+
+                const progress = newLeft / (containerRect.width - slider.offsetWidth - 5);
+                updateArrowTextOpacity(progress);
+                updateContainerColor(progress, color);
+            }
+
+            function updateArrowTextOpacity(progress) {
+                const arrowContainer = slider.parentElement.querySelector('.arrow-container');
+                arrowContainer.style.opacity = 1 - progress;
+            }
+
+            function updateContainerColor(progress, color) {
+                const container = slider.parentElement;
+                container.style.backgroundColor = `rgba(${hexToRgb(color)}, ${progress})`;
+            }
+
+            function hexToRgb(hex) {
+                let bigint = parseInt(hex.slice(1), 16);
+                let r = (bigint >> 16) & 255;
+                let g = (bigint >> 8) & 255;
+                let b = bigint & 255;
+                return `${r}, ${g}, ${b}`;
+            }
+
+            function onMouseUp() {
+                if (isDragging) {
+                    isDragging = false;
+                    document.removeEventListener('mousemove', onMouseMove);
+                    document.removeEventListener('mouseup', onMouseUp);
+                    finishSliding();
+                }
+            }
+
+            function onTouchEnd() {
+                if (isDragging) {
+                    isDragging = false;
+                    document.removeEventListener('touchmove', onTouchMove);
+                    document.removeEventListener('touchend', onTouchEnd);
+                    finishSliding();
+                }
+            }
+
+            function finishSliding() {
+                const containerRect = slider.parentElement.getBoundingClientRect();
+                if (parseInt(slider.style.left) >= containerRect.width / 2) {
+                    slider.style.left = (containerRect.width - slider.offsetWidth - 5) + 'px';
+                    setTimeout(function() {
+                        window.location.href = url;
+                    }, 300);
+                } else {
+                    slider.style.left = '5px';
+                    resetArrowTextOpacity();
+                    resetContainerColor();
+                }
+            }
+
+            function resetArrowTextOpacity() {
+                const arrowContainer = slider.parentElement.querySelector('.arrow-container');
+                arrowContainer.style.opacity = '';
+            }
+
+            function resetContainerColor() {
+                const container = slider.parentElement;
+                container.style.backgroundColor = '#e0e0e0';
+            }
+        }
+
+        createSlider(document.getElementById('slider-whatsapp'), 'https://api.whatsapp.com/send?phone=5517981611178', '#25d366');
+        createSlider(document.getElementById('slider-email'), 'mailto:psiq.drafernanda@gmail.com', '#3b5998');
+        createSlider(document.getElementById('slider-instagram'), 'https://www.instagram.com/psiq.fer', '#8a3ab9');
+    </script>
+</body>
+</html>
